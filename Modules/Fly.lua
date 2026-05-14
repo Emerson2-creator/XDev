@@ -1,20 +1,21 @@
 local fly = {}
+fly.__index = fly
 
 function fly.new()
 	local self = setmetatable({}, fly)
-	
+
 	self._Players = self:_GetService("Players")
 	self._RunService = self:_GetService("RunService")
 	self._UserInputService = self:_GetService("UserInputService")
-	
+
 	self._localPlayer = self._Players.LocalPlayer
 	self._character = self._localPlayer.Character or self._localPlayer.CharacterAdded:Wait()
 	self._humanoid = self._character:WaitForChild("Humanoid")
 	self._rootPart = self._character:WaitForChild("HumanoidRootPart")
 	self._animator = self._humanoid:WaitForChild("Animator")
-	
+
 	self._currentCamera = workspace.CurrentCamera
-	
+
 
 	self.CONTROL_MODULE = require(self._localPlayer:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule"):WaitForChild("ControlModule"))
 
@@ -178,15 +179,15 @@ function fly:_GetRotationForGryo(): CFrame
 end
 function fly:_GetService(service: string): any
 	if typeof(service) ~= "string" then return end
-	
+
 	local cloneref = (cloneref or clonereference or function(instance: any)
 		return instance
 	end)
-	
+
 	local success, cache = pcall(function()
 		return cloneref(game:GetService(service))
 	end)
-	
+
 	if success then
 		return cache
 	else
