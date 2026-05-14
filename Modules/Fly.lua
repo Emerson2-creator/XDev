@@ -176,6 +176,23 @@ function fly:_GetRotationForGryo(): CFrame
 
 	return rotation
 end
+function fly:_GetService(service: string): any
+	if typeof(service) ~= "string" then return end
+	
+	local cloneref = (cloneref or clonereference or function(instance: any)
+		return instance
+	end)
+	
+	local success, cache = pcall(function()
+		return cloneref(game:GetService(service))
+	end)
+	
+	if success then
+		return cache
+	else
+		error("Invalid Service: " .. tostring(service))
+	end
+end
 
 function fly:Set(value: boolean, speed: number?)
 	if typeof(value) ~= "boolean" then return end
