@@ -275,4 +275,4 @@ function fly:DisableAllAxis()
 	self._rotation.useZ = false
 end
 
-return fly
+return fly.new()
